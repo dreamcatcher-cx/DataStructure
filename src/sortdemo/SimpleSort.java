@@ -7,19 +7,36 @@ import java.util.Arrays;
  */
 public class SimpleSort {
     public static void main(String[] args) {
-        int[] arr = {12, 43, 10, 9, 23, 75, 18, 3, 14, 56, 34, 29};
-        //int []arr = {5,1,2,3,4};
-        //bubbleSort(arr);
-        //System.out.println("冒泡排序后：" + Arrays.toString(arr));
+        //int[] arr = {12, 43, 10, 9, 23, 75, 18, 3, 14, 56, 34, 29};
+        int []arr = {10,9,8,7,6,5,4,3,2,1,0};
+//        bubbleSort(arr);
+//        System.out.println("冒泡排序后：" + Arrays.toString(arr));
         //增强型冒泡排序
 //        enhanceBubbleSort(arr);
 //        System.out.println("增强型冒泡排序：" + Arrays.toString(arr));
         //简单选择排序
-//        selectionSort(arr);
+//        selectSort(arr);
 //        System.out.println("简单选择排序："+ Arrays.toString(arr));
         //简单插入排序
         insertionSort(arr);
-        System.out.println("简单插入排序:"+ Arrays.toString(arr));
+        System.out.println("简单插入排序:" + Arrays.toString(arr));
+    }
+
+    /**
+     * 冒泡排序
+     *
+     * @param arr
+     */
+    public static void bubbleSort1(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    arr[j] = arr[j] + arr[j + 1];
+                    arr[j + 1] = arr[j] - arr[j + 1];
+                    arr[j] = arr[j] - arr[j + 1];
+                }
+            }
+        }
     }
 
     /**
@@ -29,29 +46,10 @@ public class SimpleSort {
      */
     public static void bubbleSort(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
+            boolean flag = true;//设定一个标记，若为true，则表示此次循环没有进行交换，也就是待排序列已经有序，排序已然完成。
             for (int j = 0; j < arr.length - 1 - i; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    arr[j] = arr[j] + arr[j + 1];
-                    arr[j + 1] = arr[j] - arr[j + 1];
-                    arr[j] = arr[j] - arr[j + 1];
-                }
-            }
-        }
-    }
-
-    /**
-     * 增强型冒泡排序，避免不必要的比较
-     *
-     * @param arr
-     */
-    public static void enhanceBubbleSort(int[] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            boolean flag = true;
-            for (int j = 0; j < arr.length - 1 - i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    arr[j] = arr[j] + arr[j + 1];
-                    arr[j + 1] = arr[j] - arr[j + 1];
-                    arr[j] = arr[j] - arr[j + 1];
+                    swap(arr,j,j+1);
                     flag = false;
                 }
             }
@@ -60,41 +58,50 @@ public class SimpleSort {
             }
         }
     }
-
     /**
      * 简单选择排序
+     *
      * @param arr
      */
-    public static void selectionSort(int[] arr){
-        int min = 0;
-        for(int i=0;i<arr.length-1;i++){
-            min = i;
-            for(int j=i+1;j<arr.length;j++){
-                if(arr[j]<arr[min]){
+    public static void selectSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int min = i;//每一趟循环比较时，设置min变量，用于存放较小元素的数组下标，这样当前批次比较完毕最终存放的就是此趟内最小的元素的下标，避免每次遇到较小元素都要进行交换。
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[min]) {
                     min = j;
                 }
             }
-            if(min!=i){
-                arr[i] = arr[i]+arr[min];
-                arr[min] = arr[i]-arr[min];
-                arr[i] = arr[i]-arr[min];
+            //进行交换，如果min发生变化，则进行交换
+            if (min != i) {
+                swap(arr,min,i);
             }
         }
     }
 
     /**
      * 插入排序
+     *
      * @param arr
      */
-    public static void insertionSort(int []arr){
-        for(int i=1;i<arr.length;i++){
-            int j=i;
-            while(j>0 && arr[j]<arr[j-1]){
-                arr[j] = arr[j]+arr[j-1];
-                arr[j-1] = arr[j]-arr[j-1];
-                arr[j] = arr[j]-arr[j-1];
+    public static void insertionSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int j = i;
+            while (j > 0 && arr[j] < arr[j - 1]) {
+                swap(arr,j,j-1);
                 j--;
             }
         }
+    }
+
+    /**
+     * 交换数组元素
+     * @param arr
+     * @param a
+     * @param b
+     */
+    public static void swap(int []arr,int a,int b){
+        arr[a] = arr[a]+arr[b];
+        arr[b] = arr[a]-arr[b];
+        arr[a] = arr[a]-arr[b];
     }
 }
