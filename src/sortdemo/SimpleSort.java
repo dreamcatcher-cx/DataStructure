@@ -1,14 +1,12 @@
 package sortdemo;
 
-import java.util.Arrays;
-
 /**
  * Created by chengxiao on 2016/11/22.
  */
 public class SimpleSort {
     public static void main(String[] args) {
         //int[] arr = {12, 43, 10, 9, 23, 75, 18, 3, 14, 56, 34, 29};
-        int []arr = {10,9,8,7,6,5,4,3,2,1,0};
+        //int []arr = {10,9,8,7,6,5,4,3,2,1,0};
 //        bubbleSort(arr);
 //        System.out.println("冒泡排序后：" + Arrays.toString(arr));
         //增强型冒泡排序
@@ -18,8 +16,19 @@ public class SimpleSort {
 //        selectSort(arr);
 //        System.out.println("简单选择排序："+ Arrays.toString(arr));
         //简单插入排序
-        insertionSort(arr);
-        System.out.println("简单插入排序:" + Arrays.toString(arr));
+//        insertionSort(arr);
+//        System.out.println("简单插入排序:" + Arrays.toString(arr));
+        int []arr = new int[10000000];
+        //System.out.println((int)(Math.random()*100000));
+        for(int i=0;i<10000000;i++){
+            arr[i] = (int)(Math.random()*10000000);
+        }
+        long start = System.currentTimeMillis();
+        bubbleSort(arr);
+        //System.out.println(Arrays.toString(arr));
+
+        long end = System.currentTimeMillis();
+        System.out.println("排序完成,共计耗时"+(end-start)+"毫秒");
     }
 
     /**
